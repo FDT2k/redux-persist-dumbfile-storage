@@ -18,7 +18,5 @@ export const makeFsAPI= (options) =>{
   }
 }
 
-const filenamer = fsAPI=> _options => name => { return fsAPI.pathjoin(_options.storage_dir,name)}
-
 
 export const storage = makeStorage(makeFsAPI)

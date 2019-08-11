@@ -7,17 +7,16 @@ const configureStorage = fsAPI=> options =>{
     throw new Error ('storage_dir must be set');
   }
 
-  fsAPI(options).create_dir(options.storage_dir);
-
-
   return options;
 }
-
 
 export const makeStorage = fsAPI=> options => {
   let _options = configureStorage(fsAPI)(options);
 
+  fsAPI(options).create_dir(options.storage_dir);
+
   let api = fsAPI(_options)
+
 
   return {
     setItem: setItem(api.write)(api.namer),
@@ -29,7 +28,6 @@ export const makeStorage = fsAPI=> options => {
 }
 
 const setItem = write=> filename => (key,value)=>{
-
   return new Promise((resolve,reject)=>{
     try{
       write(filename(key),value,'utf8')
